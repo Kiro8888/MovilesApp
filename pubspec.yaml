@@ -31,7 +31,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.13.1
+  http: ^0.13.6
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -53,6 +53,19 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  fonts:
+    - family: DancingScript
+      fonts:
+        - asset: fonts/DancingScript-VariableFont_wght.ttf
+  assets:
+    # - assets/ruta_de_la_imagen.jpg
+    - assets/images/foodie.png
+    - assets/foodie.png
+    - foodie.png
+  
+
+
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

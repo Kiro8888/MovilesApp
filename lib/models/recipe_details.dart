@@ -1,12 +1,14 @@
-class Recipe {
+class Recipe_details {
+  final String id;
   final String name;
   final String images;
   final double rating;
 
-  Recipe({this.name, this.images, this.rating});
+  Recipe_details({this.id, this.name, this.images, this.rating});
 
-  factory Recipe.fromJson(dynamic json) {
-    return Recipe(
+  factory Recipe_details.fromJson(dynamic json) {
+    return Recipe_details(
+      id: json['id'] != null ? json['id'] as String : '',
       name: json['name'] != null ? json['name'] as String : '',
       images:
           json['images'] != null && json['images'][0]['hostedLargeUrl'] != null
@@ -16,14 +18,14 @@ class Recipe {
     );
   }
 
-  static List<Recipe> recipesFromSnapshot(List<dynamic> snapshot) {
+  static List<Recipe_details> recipesFromSnapshot(List<dynamic> snapshot) {
     return snapshot.map((data) {
-      return Recipe.fromJson(data);
+      return Recipe_details.fromJson(data);
     }).toList();
   }
 
   @override
   String toString() {
-    return 'Recipe {name: $name, image: $images, rating: $rating}';
+    return 'Recipe {id: $id, name: $name, image: $images, rating: $rating}';
   }
 }

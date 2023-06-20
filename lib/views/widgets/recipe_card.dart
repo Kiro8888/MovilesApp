@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_recetas/views/CardDetailPage.dart';
+import 'package:flutter_recetas/views/CardDetailPage.dart';
+import 'package:flutter/src/material/material_state.dart';
+import 'package:flutter_recetas/models/recipe.dart';
+import 'package:flutter_recetas/models/recipe_details.dart';
+
+import 'package:flutter_recetas/views/CardDetailPageMaquetado.dart';
 
 class RecipeCard extends StatelessWidget {
+  final String id;
   final String title;
   final String rating;
-  final String cookTime;
   final String thumbnailUrl;
+  final Recipe_details recipe;
+
   RecipeCard({
+    @required this.id,
     @required this.title,
-    @required this.cookTime,
     @required this.rating,
     @required this.thumbnailUrl,
+    this.recipe,
   });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,6 +60,9 @@ class RecipeCard extends StatelessWidget {
                 title,
                 style: TextStyle(
                   fontSize: 19,
+                  color: Colors.black,
+                  fontFamily: 'DancingScript',
+                  fontWeight: FontWeight.bold,
                 ),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
@@ -60,48 +74,45 @@ class RecipeCard extends StatelessWidget {
           Align(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(5),
-                  margin: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.4),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.star,
-                        color: Colors.yellow,
-                        size: 18,
-                      ),
-                      SizedBox(width: 7),
-                      Text(rating),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  margin: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.4),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.schedule,
-                        color: Colors.yellow,
-                        size: 18,
-                      ),
-                      SizedBox(width: 7),
-                      Text(cookTime),
-                    ],
-                  ),
-                )
-              ],
+              children: [],
             ),
             alignment: Alignment.bottomLeft,
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 20.0),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.black),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  // if (recipe != null) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CardDetailPage(),
+                    ),
+                  );
+                  // } else {
+                  // La variable recipe es nula, puedes mostrar un mensaje de error o realizar alguna otra acción.
+                  //   print('La variable recipe es nula');
+                  // }
+                },
+                child: Text(
+                  'Ver más',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
           ),
         ],
       ),

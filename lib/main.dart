@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_recetas/views/home.dart';
+import 'package:flutter_recetas/views/Star.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(color: Colors.white),
         ),
       ),
-      home: HomePage(),
+      home: HomeScreen(),
     );
   }
 }
