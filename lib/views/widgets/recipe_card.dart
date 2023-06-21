@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_recetas/views/CardDetailPage.dart';
 import 'package:flutter_recetas/models/recipe_details.dart';
+import 'package:flutter_recetas/views/CardDetailPageMaquetado.dart';
 
 class RecipeCard extends StatelessWidget {
   final String id;

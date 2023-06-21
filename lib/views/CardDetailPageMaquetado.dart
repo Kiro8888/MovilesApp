@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_recetas/models/recipe_details.dart';
 
 class CardDetailPageMaquetador extends StatefulWidget {
-  final Recipe_details recipe;
+  final CardDetailPageMaquetador recipe;
 
   CardDetailPageMaquetador({this.recipe});
 
