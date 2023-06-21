@@ -12,6 +12,8 @@ class CardDetailPage extends StatelessWidget {
     print('Recipe Name: ${recipe.name}');
     print('Recipe Images: ${recipe.images}');
     print('Recipe Rating: ${recipe.rating}');
+    print('TotalTime: ${recipe.totalTime}');
+    print('keywords: ${recipe.keywords}');
 
     return Scaffold(
       appBar: AppBar(
@@ -64,10 +66,6 @@ class CardDetailPage extends StatelessWidget {
                   ),
                 ],
                 image: DecorationImage(
-                  colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.35),
-                    BlendMode.multiply,
-                  ),
                   image: NetworkImage(
                     recipe.images ?? '',
                   ),
@@ -117,7 +115,7 @@ class CardDetailPage extends StatelessWidget {
                           size: 16,
                         ),
                         Text(
-                          ' 1:40h',
+                          recipe.totalTime,
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -164,9 +162,15 @@ class CardDetailPage extends StatelessWidget {
                     ListView(
                       shrinkWrap: true,
                       children: [
-                        Text('Ingrediente 1'),
-                        Text('Ingrediente 2'),
-                        Text('Ingrediente 3'),
+                        ListView(
+                          shrinkWrap: true,
+                          children: recipe.keywords
+                              .map((keyword) => Text(
+                                    keyword,
+                                    style: TextStyle(color: Colors.black),
+                                  ))
+                              .toList(),
+                        ),
                       ],
                     ),
                   ],
