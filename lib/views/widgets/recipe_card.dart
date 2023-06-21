@@ -1,23 +1,18 @@
+// RecipeCard.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_recetas/views/CardDetailPage.dart';
-import 'package:flutter_recetas/views/CardDetailPage.dart';
-import 'package:flutter/src/material/material_state.dart';
-import 'package:flutter_recetas/models/recipe.dart';
 import 'package:flutter_recetas/models/recipe_details.dart';
-
-import 'package:flutter_recetas/views/CardDetailPageMaquetado.dart';
 
 class RecipeCard extends StatelessWidget {
   final String id;
   final String title;
-  final String rating;
   final String thumbnailUrl;
   final Recipe_details recipe;
 
   RecipeCard({
     @required this.id,
     @required this.title,
-    @required this.rating,
     @required this.thumbnailUrl,
     this.recipe,
   });
@@ -93,17 +88,12 @@ class RecipeCard extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  // if (recipe != null) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CardDetailPage(),
+                      builder: (context) => CardDetailPage(recipe: recipe),
                     ),
                   );
-                  // } else {
-                  // La variable recipe es nula, puedes mostrar un mensaje de error o realizar alguna otra acción.
-                  //   print('La variable recipe es nula');
-                  // }
                 },
                 child: Text(
                   'Ver más',

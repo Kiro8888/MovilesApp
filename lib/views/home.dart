@@ -68,8 +68,9 @@ class _HomePageState extends State<HomePage> {
                 return RecipeCard(
                   id: recipe.id, // Pasa el ID al constructor de RecipeCard
                   title: recipe.name,
-                  rating: recipe.rating.toString(),
+
                   thumbnailUrl: recipe.images,
+                  recipe: recipe,
                 );
               },
             ),

@@ -26,6 +26,6 @@ class Recipe_details {
 
   @override
   String toString() {
-    return 'Recipe {id: $id, name: $name, image: $images, rating: $rating}';
+    return 'Recipe_details {id: $id, name: $name, images: $images, rating: $rating}';
   }
 }
