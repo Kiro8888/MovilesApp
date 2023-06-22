@@ -4,7 +4,10 @@ class Recipe_details {
   final String images;
   final double rating;
   final String totalTime;
-  final List<String> keywords;
+  final String mobileSectionName;
+
+  final List<String> preparationSteps;
+  final List<String> ingredientLines;
 
   Recipe_details({
     this.id,
@@ -12,25 +15,46 @@ class Recipe_details {
     this.images,
     this.rating,
     this.totalTime,
-    this.keywords,
+    this.preparationSteps,
+    this.ingredientLines,
+    this.mobileSectionName,
   });
 
   factory Recipe_details.fromJson(dynamic json) {
-    List<String> keywordList = [];
-    if (json['keywords'] != null && json['keywords'] is List) {
-      keywordList = List<String>.from(json['keywords']);
+    List<String> preparationSteps = [];
+    if (json['preparationSteps'] != null && json['preparationSteps'] is List) {
+      preparationSteps = List<String>.from(json['preparationSteps']);
+    }
+
+    List<String> ingredientLines = [];
+    if (json['ingredientLines'] != null && json['ingredientLines'] is List) {
+      for (var line in json['ingredientLines']) {
+        if (line['wholeLine'] != null) {
+          ingredientLines.add(line['wholeLine']);
+        }
+      }
     }
 
     return Recipe_details(
-      id: json['id'] != null ? json['id'] as String : '',
-      name: json['name'] != null ? json['name'] as String : '',
-      images:
-          json['images'] != null && json['images'][0]['hostedLargeUrl'] != null
-              ? json['images'][0]['hostedLargeUrl'] as String
-              : '',
-      rating: json['rating'] != null ? json['rating'].toDouble() : 0.0,
-      totalTime: json['totalTime'] != null ? json['totalTime'] as String : '',
-      keywords: keywordList,
+      id: json['details']['id'] != null ? json['details']['id'] as String : '',
+      name: json['details']['name'] != null
+          ? json['details']['name'] as String
+          : '',
+      images: json['details']['images'] != null &&
+              json['details']['images'][0]['hostedLargeUrl'] != null
+          ? json['details']['images'][0]['hostedLargeUrl'] as String
+          : '',
+      rating: json['details']['rating'] != null
+          ? json['details']['rating'].toDouble()
+          : 0.0,
+      totalTime: json['details']['totalTime'] != null
+          ? json['details']['totalTime'] as String
+          : '',
+      preparationSteps: preparationSteps,
+      ingredientLines: ingredientLines,
+      mobileSectionName: json['nutrition']['mobileSectionName'] != null
+          ? json['nutrition']['mobileSectionName'] as String
+          : '',
     );
   }
 
@@ -42,6 +66,6 @@ class Recipe_details {
 
   @override
   String toString() {
-    return 'Recipe_details {id: $id, name: $name, images: $images, rating: $rating, totalTime: $totalTime, keywords: $keywords}';
+    return 'Recipe_details {id: $id, name: $name, images: $images, rating: $rating, totalTime: $totalTime,}';
   }
 }

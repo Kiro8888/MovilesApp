@@ -18,7 +18,8 @@ class RecipeApiDetails {
     List _temp = [];
 
     for (var i in data['feed']) {
-      _temp.add(i['content']['details']);
+      _temp.add(i['content']);
+      // _temp.add(i['content']['details']);
     }
 
     return Recipe_details.recipesFromSnapshot(_temp);
