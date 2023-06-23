@@ -2,23 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_recetas/models/recipe_details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CardDetailPage extends StatefulWidget {
-  final Recipe_details recipe;
+class CardDetailsFavoritePage extends StatefulWidget {
+  final Recipe_details recipeFavorite;
 
-  CardDetailPage({this.recipe});
+  CardDetailsFavoritePage({this.recipeFavorite});
 
   @override
-  _CardDetailPageState createState() => _CardDetailPageState();
+  _CardDetailsFavoritePageState createState() =>
+      _CardDetailsFavoritePageState();
 }
 
-class _CardDetailPageState extends State<CardDetailPage> {
+class _CardDetailsFavoritePageState extends State<CardDetailsFavoritePage> {
   bool isFavorite = false;
 
   void addToFavorites() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String recipeId = widget.recipe.name.toString();
-    // String image = widget.recipe.images.toString();
-
+    String recipeId = widget.recipeFavorite.name.toString();
     List<String> favorites = prefs.getStringList('favorites') ?? [];
     if (!favorites.contains(recipeId)) {
       favorites.add(recipeId);
@@ -31,7 +30,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
 
   void removeFromFavorites() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String recipeId = widget.recipe.name.toString();
+    String recipeId = widget.recipeFavorite.name.toString();
     List<String> favorites = prefs.getStringList('favorites') ?? [];
     if (favorites.contains(recipeId)) {
       favorites.remove(recipeId);
@@ -50,7 +49,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
 
   void checkFavoriteStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String recipeId = widget.recipe.name.toString();
+    String recipeId = widget.recipeFavorite.name.toString();
     List<String> favorites = prefs.getStringList('favorites') ?? [];
     if (favorites.contains(recipeId)) {
       setState(() {
@@ -61,12 +60,6 @@ class _CardDetailPageState extends State<CardDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('Recipe ID: ${widget.recipe.id}');
-    print('Recipe Name: ${widget.recipe.name}');
-    print('Recipe Images: ${widget.recipe.images}');
-    print('Recipe Rating: ${widget.recipe.rating}');
-    print('TotalTime: ${widget.recipe.totalTime}');
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 102, 26, 26),
@@ -123,7 +116,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
                   ],
                   image: DecorationImage(
                     image: NetworkImage(
-                      widget.recipe.images ?? '',
+                      widget.recipeFavorite.images ?? '',
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -140,7 +133,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
                       Row(
                         children: [
                           Text(
-                            widget.recipe.name ?? '',
+                            widget.recipeFavorite.name ?? '',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -166,119 +159,73 @@ class _CardDetailPageState extends State<CardDetailPage> {
                         children: [
                           SizedBox(width: 8),
                           Icon(
-                            Icons.access_time,
+                            Icons.timer,
                             color: Colors.black,
                             size: 16,
                           ),
+                          SizedBox(width: 8),
                           Text(
-                            widget.recipe.totalTime,
+                            '${widget.recipeFavorite.totalTime} min',
                             style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
                               color: Color.fromARGB(255, 0, 0, 0),
                             ),
                           ),
-                          SizedBox(width: 250),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 2,
-                              horizontal: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(
-                              widget.recipe.mobileSectionName,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
+                          SizedBox(width: 16),
+                          Icon(
+                            Icons.person,
+                            color: Colors.black,
+                            size: 16,
+                          ),
+                          SizedBox(width: 8),
+                          Text(
+                            '${widget.recipeFavorite.mobileSectionName} servings',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Color.fromARGB(255, 0, 0, 0),
                             ),
                           ),
                         ],
-                      ),
-                      SizedBox(height: 8),
-                      Container(
-                        width: 400,
-                        height: 2,
-                        color: Color.fromARGB(255, 0, 0, 0),
                       ),
                       SizedBox(height: 16),
                       Text(
-                        'Ingredientes',
+                        'Ingredients:',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 0, 0, 0),
                         ),
                       ),
                       SizedBox(height: 8),
-                      ListView(
-                        shrinkWrap: true,
-                        children: [
-                          ListView(
-                            shrinkWrap: true,
-                            children: widget.recipe.ingredientLines
-                                .map((keyword) => Text(
-                                      keyword,
-                                      style: TextStyle(color: Colors.black),
-                                    ))
-                                .toList(),
-                          ),
-                        ],
-                      ),
                       Text(
-                        'Preparación',
+                        widget.recipeFavorite.ingredientLines ?? '',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 16,
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      Text(
+                        'Steps:',
+                        style: TextStyle(
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 0, 0, 0),
                         ),
                       ),
                       SizedBox(height: 8),
-                      ListView(
-                        shrinkWrap: true,
-                        children: [
-                          ListView(
-                            shrinkWrap: true,
-                            children: widget.recipe.preparationSteps
-                                .map((keyword) => Text(
-                                      keyword,
-                                      style: TextStyle(color: Colors.black),
-                                    ))
-                                .toList(),
-                          ),
-                        ],
+                      Text(
+                        widget.recipeFavorite.preparationSteps ?? '',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: Container(
-        height: 36, // Ajusta la altura según tus necesidades
-        child: ElevatedButton.icon(
-          onPressed: () {
-            // Acciones al hacer clic en el botón de regresar
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back),
-          label: Text('Regresar a la lista de recetas'),
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-            minimumSize: MaterialStateProperty.all<Size>(
-              Size(double.infinity, 36),
-            ),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0),
-              ),
-            ),
           ),
         ),
       ),

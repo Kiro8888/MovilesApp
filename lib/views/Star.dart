@@ -3,6 +3,8 @@ import 'package:flutter_recetas/views/home.dart';
 import 'package:flutter/src/material/material_state.dart';
 import 'package:flutter_recetas/views/CardDetailPage.dart';
 
+import 'package:flutter_recetas/views/Favorite.dart';
+
 void main() {
   runApp(MyApp());
 }

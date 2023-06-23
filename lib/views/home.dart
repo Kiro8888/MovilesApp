@@ -4,6 +4,7 @@ import 'package:flutter_recetas/models/recipe.api.details.dart';
 // import 'package:flutter_recetas/models/recipe.dart';
 import 'package:flutter_recetas/models/recipe_details.dart';
 import 'package:flutter_recetas/views/widgets/recipe_card.dart';
+import 'package:flutter_recetas/views/Favorite.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -45,15 +46,35 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(width: 170),
-            IconButton(
+            PopupMenuButton(
+              itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                PopupMenuItem(
+                  child: Text('Lista recetas'),
+                  value: 'opcion1',
+                ),
+                PopupMenuItem(
+                  child: Text('Favoritos'),
+                  value: 'opcion2',
+                ),
+              ],
+              onSelected: (value) {
+                if (value == 'opcion1') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
+                } else if (value == 'opcion2') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FavoritePage()),
+                  );
+                }
+              },
               icon: Icon(
                 Icons.menu,
                 color: Color.fromARGB(
                     255, 0, 0, 0), // Cambia aquí el color del ícono
               ),
-              onPressed: () {
-                // Acciones al hacer clic en el ícono de menú
-              },
             ),
           ],
         ),
