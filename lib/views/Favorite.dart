@@ -94,19 +94,6 @@ class _FavoritePageState extends State<FavoritePage> {
             child: ListTile(
               leading: Icon(Icons.image),
               title: Text(recipeName ?? ''),
-              trailing: IconButton(
-                icon: Icon(Icons.arrow_forward),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CardDetailsFavoritePage(
-                        recipeFavorite: widget.recipeFavo,
-                      ),
-                    ),
-                  );
-                },
-              ),
             ),
           );
         },

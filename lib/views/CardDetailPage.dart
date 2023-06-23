@@ -16,7 +16,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
 
   void addToFavorites() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String recipeId = widget.recipe.name.toString();
+    String recipeId = widget.recipe.toString();
     // String image = widget.recipe.images.toString();
 
     List<String> favorites = prefs.getStringList('favorites') ?? [];
@@ -31,7 +31,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
 
   void removeFromFavorites() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String recipeId = widget.recipe.name.toString();
+    String recipeId = widget.recipe.toString();
     List<String> favorites = prefs.getStringList('favorites') ?? [];
     if (favorites.contains(recipeId)) {
       favorites.remove(recipeId);
@@ -50,7 +50,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
 
   void checkFavoriteStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String recipeId = widget.recipe.name.toString();
+    String recipeId = widget.recipe.toString();
     List<String> favorites = prefs.getStringList('favorites') ?? [];
     if (favorites.contains(recipeId)) {
       setState(() {
